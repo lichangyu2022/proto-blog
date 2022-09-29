@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kubeadm安装 | Proto&#39;s blog</title>
+    <meta name="generator" content="VuePress 1.9.5">
+    <link rel="icon" href="/img/PROTO.png">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_3077305_pt8umhrn4k9.css">
+    <script src="https://fastly.jsdelivr.net/npm/twikoo@1.4.18/dist/twikoo.all.min.js"></script>
+    <meta name="description" content="web前端技术博客,专注web前端学习与总结。JavaScript,js,ES6,TypeScript,vue,React,python,css3,html5,Node,git,github等技术文章。">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="keywords" content="后端博客,个人技术博客,后端,后端开发,后端框架,技术文档,学习,面试,JavaScript,js,ES6,TypeScript,vue,python,css3,html5,Node,git,github,markdown">
+    <meta name="baidu-site-verification" content="7F55weZDDc">
+    <meta name="theme-color" content="#11a8cd">
+    
+    <link rel="preload" href="/assets/css/0.styles.628fc664.css" as="style"><link rel="preload" href="/assets/js/app.74fccf48.js" as="script"><link rel="preload" href="/assets/js/2.a7e8ef18.js" as="script"><link rel="preload" href="/assets/js/28.d7670328.js" as="script"><link rel="preload" href="/assets/js/6.66ff038f.js" as="script"><link rel="preload" href="/assets/js/3.c21cb588.js" as="script"><link rel="prefetch" href="/assets/js/10.fc167a52.js"><link rel="prefetch" href="/assets/js/11.3adc87bc.js"><link rel="prefetch" href="/assets/js/12.550ee4e8.js"><link rel="prefetch" href="/assets/js/13.517ae1a0.js"><link rel="prefetch" href="/assets/js/14.bc161050.js"><link rel="prefetch" href="/assets/js/15.062dcf7a.js"><link rel="prefetch" href="/assets/js/16.449283f3.js"><link rel="prefetch" href="/assets/js/17.8a8eea99.js"><link rel="prefetch" href="/assets/js/18.b7b37ee0.js"><link rel="prefetch" href="/assets/js/19.859373d8.js"><link rel="prefetch" href="/assets/js/20.7cf83511.js"><link rel="prefetch" href="/assets/js/21.9b0dba52.js"><link rel="prefetch" href="/assets/js/22.bdfc5c07.js"><link rel="prefetch" href="/assets/js/23.75e61e76.js"><link rel="prefetch" href="/assets/js/24.7548546a.js"><link rel="prefetch" href="/assets/js/25.2803c34c.js"><link rel="prefetch" href="/assets/js/26.2f2a2768.js"><link rel="prefetch" href="/assets/js/27.ecaf06b6.js"><link rel="prefetch" href="/assets/js/29.b2439279.js"><link rel="prefetch" href="/assets/js/30.2a5944f9.js"><link rel="prefetch" href="/assets/js/31.40692897.js"><link rel="prefetch" href="/assets/js/32.17c16379.js"><link rel="prefetch" href="/assets/js/33.2577e07d.js"><link rel="prefetch" href="/assets/js/34.67113836.js"><link rel="prefetch" href="/assets/js/35.0a603c54.js"><link rel="prefetch" href="/assets/js/36.b8d24dd5.js"><link rel="prefetch" href="/assets/js/37.79ac65ee.js"><link rel="prefetch" href="/assets/js/38.d6cd30f1.js"><link rel="prefetch" href="/assets/js/39.6cad7281.js"><link rel="prefetch" href="/assets/js/4.c375548d.js"><link rel="prefetch" href="/assets/js/40.14e7cd55.js"><link rel="prefetch" href="/assets/js/41.89ebf3f2.js"><link rel="prefetch" href="/assets/js/42.c4846b58.js"><link rel="prefetch" href="/assets/js/43.eebff6e8.js"><link rel="prefetch" href="/assets/js/44.294c4c31.js"><link rel="prefetch" href="/assets/js/45.7fadbd31.js"><link rel="prefetch" href="/assets/js/46.0d66180f.js"><link rel="prefetch" href="/assets/js/47.e32d8579.js"><link rel="prefetch" href="/assets/js/48.cb4f2332.js"><link rel="prefetch" href="/assets/js/49.312d7376.js"><link rel="prefetch" href="/assets/js/5.8e05eff0.js"><link rel="prefetch" href="/assets/js/50.ffd3df87.js"><link rel="prefetch" href="/assets/js/51.41089d6b.js"><link rel="prefetch" href="/assets/js/52.af5c48df.js"><link rel="prefetch" href="/assets/js/53.52b0fd57.js"><link rel="prefetch" href="/assets/js/54.7bfe94b4.js"><link rel="prefetch" href="/assets/js/55.1a894439.js"><link rel="prefetch" href="/assets/js/56.ae7f911b.js"><link rel="prefetch" href="/assets/js/57.f80519f2.js"><link rel="prefetch" href="/assets/js/58.e2e2b6fb.js"><link rel="prefetch" href="/assets/js/7.d2024a9a.js"><link rel="prefetch" href="/assets/js/8.7619aec5.js"><link rel="prefetch" href="/assets/js/9.2bdad0f9.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.628fc664.css">
+  </head>
+  <body class="theme-mode-light">
+    <div id="app" data-server-rendered="true"><div class="theme-container sidebar-open"><header class="navbar blur"><div title="目录" class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/PROTO.png" alt="Proto's blog" class="logo"> <span class="site-name can-hide">Proto's blog</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><a href="/code/" class="link-title">后端</a> <span class="title" style="display:none;">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/07c04a/" class="nav-link">Spring</a></li><li class="dropdown-subitem"><a href="/pages/13793a/" class="nav-link">JVM</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><a href="/db/" class="link-title">数据库</a> <span class="title" style="display:none;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/78b014/" class="nav-link">mysql</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Linux" class="dropdown-title"><a href="/linux/" class="link-title">Linux</a> <span class="title" style="display:none;">Linux</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/1535e3/" class="nav-link">criu</a></li><li class="dropdown-item"><!----> <a href="/pages/23c241/" class="nav-link">银河麒麟</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="云原生" class="dropdown-title"><a href="/cloud/" class="link-title">云原生</a> <span class="title" style="display:none;">云原生</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/824495/" class="nav-link">K8S</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="逆向" class="dropdown-title"><a href="/reverse/" class="link-title">逆向</a> <span class="title" style="display:none;">逆向</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">汇编</a></li><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">WIN32</a></li><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">PE</a></li><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">硬编码</a></li></ul></div></div> <a href="https://github.com/lichangyu2022" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar-hover-trigger"></div> <aside class="sidebar" style="display:none;"><div class="blogger"><img src="/img/PROTO.png"> <div class="blogger-info"><h3>Proto</h3> <span>45°躺平选手</span></div></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">首页</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><a href="/code/" class="link-title">后端</a> <span class="title" style="display:none;">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>Java</h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/pages/07c04a/" class="nav-link">Spring</a></li><li class="dropdown-subitem"><a href="/pages/13793a/" class="nav-link">JVM</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="数据库" class="dropdown-title"><a href="/db/" class="link-title">数据库</a> <span class="title" style="display:none;">数据库</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/78b014/" class="nav-link">mysql</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Linux" class="dropdown-title"><a href="/linux/" class="link-title">Linux</a> <span class="title" style="display:none;">Linux</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/1535e3/" class="nav-link">criu</a></li><li class="dropdown-item"><!----> <a href="/pages/23c241/" class="nav-link">银河麒麟</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="云原生" class="dropdown-title"><a href="/cloud/" class="link-title">云原生</a> <span class="title" style="display:none;">云原生</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/824495/" class="nav-link">K8S</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="逆向" class="dropdown-title"><a href="/reverse/" class="link-title">逆向</a> <span class="title" style="display:none;">逆向</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">汇编</a></li><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">WIN32</a></li><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">PE</a></li><li class="dropdown-item"><!----> <a href="/pages/6c11cc/404" class="nav-link">硬编码</a></li></ul></div></div> <a href="https://github.com/lichangyu2022" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>K8s</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/pages/824495/" class="sidebar-link">CKA介绍</a></li><li><a href="/pages/204ff5/" class="sidebar-link">k8s介绍</a></li><li><a href="/pages/6c11cc/" aria-current="page" class="active sidebar-link">Kubeadm安装</a></li></ul></section></li></ul> </aside> <div><main class="page"><div class="theme-vdoing-wrapper "><div class="articleInfo-wrap" data-v-06225672><div class="articleInfo" data-v-06225672><ul class="breadcrumbs" data-v-06225672><li data-v-06225672><a href="/" title="首页" class="iconfont icon-home router-link-active" data-v-06225672></a></li> <li data-v-06225672><a href="/cloud/#云原生" data-v-06225672>云原生</a></li><li data-v-06225672><a href="/cloud/#K8s" data-v-06225672>K8s</a></li></ul> <div class="info" data-v-06225672><div title="作者" class="author iconfont icon-touxiang" data-v-06225672><a href="https://github.com/lichangyu2022" target="_blank" title="作者" class="beLink" data-v-06225672>Proto</a></div> <div title="创建时间" class="date iconfont icon-riqi" data-v-06225672><a href="javascript:;" data-v-06225672>2022-06-12</a></div> <!----></div></div></div> <!----> <div class="content-wrapper"><!----> <h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAABGpJREFUSA3tVVtoXFUU3fvOI53UlmCaKIFmwEhsE7QK0ipFEdHEKpXaZGrp15SINsXUWvBDpBgQRKi0+KKoFeJHfZA+ED9KKoIU2gYD9UejTW4rVIzm0VSTziPzuNu1z507dibTTjL4U/DAzLn3nL3X2o91ziX6f9wMFdh6Jvbm9nNSV0msViVO6tN1Rm7NMu2OpeJ9lWBUTDxrJbYTS0hInuwciu9eLHlFxCLCZEk3MegsJmZ5K/JD6t7FkFdEvGUo1g7qJoG3MHImqRIn8/nzY1K9UPKKiJmtnUqHVE3Gbuay6vJE/N2FEmuxFjW2nUuE0yQXRRxLiTUAzs36zhZvOXJPdX850EVnnLZkB8prodQoM5JGj7Xk2mvC7JB8tG04Ef5PiXtG0UtxupRQSfTnBoCy554x18yJHI6I+G5Eru4LHmPJZEQsrvPUbMiA8G/WgMK7w7I+ez7++o2ANfbrjvaOl1tFMs+htG3IrZH9/hDX1Pr8Tc0UvH8tcX29KzAgIGcEkINyW5BF9x891hw6VYqgJHEk0huccS7vh3C6gTiODL+26huuBtbct8eZnqLML8PkxGYpuPZBqtqwkSjgc4mB5gbgig5i+y0UDK35LMxXisn9xQtK+nd26gTIHsHe/oblK/b29fUmN/8Y+9jAQrnBp56m1LcDlDp9irKTExSKduXJVWSqdBMA08pEJnEIOB3FPPMybu/oeV8zFeYN3xx576Q6RH+VmplE4ncQV5v+5rzSoyOU7PuEAg8g803PwBJ0CExno/jcMbN8tONYeOmHiuUNryvm3fRUy4tMPVLdAGkUhNWuggGrJcXPv+ouCjz0MKUHz1J2/E8IC9nqTabcxgaBYM0hPhD5Y65FsbxRQKxCQrDjDctW7PUM3HuZunFyifSAqEfuzCp48Il24luWUWZoyJCaPR82jE0+kFA643wRFVni4RYSq3ohJO2pZ7B5dO4xkDWbEpossJPLSrPjYID8rS2UHTlvyNxqIGsg674XJJ7vnh5L7PNwC4hh2sjCI96mzszOTpxLF0T7l88Yz7lAuK6OnL8gXLOnTvpzSb22YG8W7us3jSebFHeeqnXRG1vt+MoUM84LQIBmMsCTAcOauTh0T0l0neQK7m2bLMt2mGxU3HYssS0J2cdv5wljlPsrIuZLAG/2DOZIXgCYT8uMGZN+e2kSirfxZOPCsC0f24nTZzspnVn9VePS1Z5vubmAGGXG8ZFno9Hel0yfA5ZPhF7Dh972BQJ2qCpgH67lmWtBYbvk6sz02wjky2vXyz0XErP/kFB619js1BtwfOV4OPRqOQBjy3Qbk18vigUPPSD5ceHnwck7W9bhAqZdd7SuG7w4/P2F/GaJh8c7e9qgow+Q7cGBo+98WsLkuktFqiZabtXuQTu/Y5ETbR0v7tNSFnvrmu6pjdoan2KjMu8q/Hmj1EfCO2ZGfEIbIXKUlw8qaX9/b2oeSJmFksSeT/Fn0V3nSypChh4Gjh74ybO9aeZ/AN2dwciu2/MhAAAAAElFTkSuQmCC">Kubeadm安装<!----></h1>  <div class="theme-vdoing-content content__default"><h1 id="_1-virtualbox-environment"><a href="#_1-virtualbox-environment" class="header-anchor">#</a> 1.VirtualBox environment</h1> <ol><li>Vbox version&gt;5.2</li> <li>创建虚拟机:
+<ul><li>Cpu&gt;2</li> <li>Memory&gt;4G</li> <li>Network card : 2</li></ul></li> <li>两个网卡
+<ul><li>第一个是 NAT enp0s3，用来上网</li> <li>第二个连接本地，k8s 使用 enp0s8, Host-only。</li></ul></li> <li>启动虚拟机</li></ol> <hr> <h1 id="_2-centos8-1安装"><a href="#_2-centos8-1安装" class="header-anchor">#</a> 2.centos8.1安装</h1> <ol><li>VM configuration
+<ul><li>Centos: 8.1.1911</li> <li>User: root</li> <li>Pass: 123456</li> <li>Ip add: 192.168.56.5 主机地址：192.168.56.1</li> <li>K8s version 1.21.5</li></ul></li> <li>软件下载
+<ul><li>官方链接 <a href="https://www.centos.org/download/" target="_blank" rel="noopener noreferrer">https://www.centos.org/download/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>清华大学镜像网站下载 <a href="https://mirrors.tuna.tsinghua.edu.cn/centos/" target="_blank" rel="noopener noreferrer">https://mirrors.tuna.tsinghua.edu.cn/centos/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>清华大学 centos 镜像<a href="https://mirrors.tuna.tsinghua.edu.cn/help/centos/" target="_blank" rel="noopener noreferrer">https://mirrors.tuna.tsinghua.edu.cn/help/centos/<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li>安装 centos8.1</li> <li>配置网络，时区等信息</li> <li>安装完成后，使用 xshell 连接</li></ul></li> <li>添加阿里源
+<ul><li>先备份 /etc/yum.repos.d/ 内的文件（CentOS 7 及之前为 CentOS-Base.repo，CentOS 8 为
+CentOS-Linux-*.repo）</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>cp /etc/yum.repos.d/*.repo /etc/yum.repos.d/*.repo.bak
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>编 辑 /etc/yum.repos.d/ 中 的 相 应 文 件 ， 在 mirrorlist= 开头行前面加 # 注 释 掉 ； 并
+将 baseurl= 开头行取消注释（如果被注释的话），把该行内的域名（例如 mirror.centos.org）
+替换为 mirrors.tuna.tsinghua.edu.cn</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>sudo sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+-e
+'s|^#baseurl=http://mirror.centos.org|baseurl=https://mirrors.tuna.tsinghua.edu.cn|g' \
+-i.bak \
+/etc/yum.repos.d/CentOS-*.repo
+
+注意其中的*通配符，如果只需要替换一些文件中的源，请他妈自行增删。
+注意，如果需要启用其中一些 repo，需要将其中的 enabled=0 改为 enabled=1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ul><li>最后，更新软件包缓存</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code> sudo yum makecache
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><ul><li>修改成阿里源</li></ul> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code> sed -e 's|^mirrorlist=|#mirrorlist=|g'\
+ -e
+ 's|^#baseurl=http://mirrors.tuna.tsinghua.edu.cn|baseurl=https://mirrors.aliyun.com|g' \
+ -i.bak \
+ /etc/yum.repos.d/CentOS-*.repo
+
+
+ sed -e 's|^mirrorlist=|#mirrorlist=|g'\
+ -e 's|^#baseurl=http://mirror.centos.org|baseurl=https://mirrors.aliyun.com|g' \
+ -i.bak \
+ /etc/yum.repos.d/CentOS-*.repo
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><ul><li>手动修改成阿里源</li></ul> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code> Copy
+ # file: /etc/yum.repos.d/CentOS-AppStream.repo
+ [AppStream]
+ name=CentOS-$releasever - AppStream
+ baseurl=http://mirrors.aliyun.com/centos/$releasever/AppStream/$basearch/os/
+ gpgcheck=1
+ enabled=1
+ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+ Copy
+ # file: /etc/yum.repos.d/CentOS-Base.repo
+ [BaseOS]
+ name=CentOS-$releasever - Base
+ baseurl=http://mirrors.aliyun.com/centos/$releasever/BaseOS/$basearch/os/
+ gpgcheck=1
+ enabled=1
+ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+ change network add : 192.168.56.5/24
+ change host name: k18-5
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div></li></ol> <h1 id="_3-环境准备"><a href="#_3-环境准备" class="header-anchor">#</a> 3.环境准备</h1> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>cat &gt;&gt; /etc/hosts &lt;&lt;OFF
+192.168.56.5 k18-5
+OFF
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><ol><li>关闭swap</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>如果不关闭，默认配置的 kubelet 将无法启动
+swapoff -a 
+sed -i 's/.*swap.*/#&amp;/' /etc/fstab
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><ol start="2"><li>禁用 SELINUX</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>setenforce 0 
+sed -i &quot;s/^SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/sysconfig/selinux 
+sed -i &quot;s/^SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/selinux/config 
+sed -i &quot;s/^SELINUX=permissive/SELINUX=disabled/g&quot; /etc/sysconfig/selinux 
+sed -i &quot;s/^SELINUX=permissive/SELINUX=disabled/g&quot; /etc/selinux/config
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ol start="3"><li>关闭并设置开机关闭查看服务状态</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>systemctl stop firewalld.service
+systemctl disable firewalld.service
+systemctl status firewalld.service
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><ol start="4"><li>创建/etc/sysctl.d/k8s.conf 文件</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>cat &gt;&gt;/etc/sysctl.d/k8s.conf&lt;&lt; OFF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward = 1
+OFF
+执行如下命令使修改生效：
+modprobe br_netfilter
+sysctl -p /etc/sysctl.d/k8s.conf
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ol start="5"><li>加载 ipvs 模块</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>modprobe -- ip_vs
+modprobe -- ip_vs_rr
+modprobe -- ip_vs_wrr
+modprobe -- ip_vs_sh
+modprobe -- nf_conntrack_ipv4
+lsmod | grep ip_vs
+lsmod | grep nf_conntrack_ipv4
+yum install -y ipvsadm ipset
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ol start="6"><li>/etc/yum.conf yum 设置代理</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>cat &gt;&gt; /etc/yum.conf &lt;&lt; OFF
+proxy=http://guest.cn.hhh.com:8080
+OFF
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><ol start="7"><li>/etc/wgetrc Wget 设置代理,内容与上面的相同</li></ol> <div class="language- line-numbers-mode"><pre class="language-text"><code>cat &gt;&gt; /etc/wgetrc &lt;&lt; OFF
+https_proxy=http://guest.cn.hhh.com:8080/
+http_proxy=http://guest.cn.hhh.com:8080/
+ftp_proxy=http://guest.cn.hhh.com:8080/
+OFF
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ol start="8"><li>docker 安装</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>step 1: 安装必要的一些系统工具
+yum install -y yum-utils device-mapper-persistent-data lvm2
+
+Step 2: 设置 stable 镜像 aliyun 仓库
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+更新 yum 软件包索引
+yum makecache fast
+
+查看目前官方仓库的 docker 版本。
+yum list docker-ce.x86_64 --showduplicates |sort -r #从高到低列出 Docker-ce 的版本
+yum remove docker-ce docker-ce-cli containerd.io -y
+yum install docker-ce-20.10.8 docker-ce-cli-20.10.8 containerd.io-1.4.10 -y –-allowerasing
+yum remove podman -y
+systemctl start docker
+systemctl enable docker --now
+
+设置 Docker 镜像加速器
+修改 docker 配置以适应 kubelet
+vi /etc/docker/daemon.json 
+{
+ &quot;registry-mirrors&quot;: [&quot;https://registry.cn-hangzhou.aliyuncs.com&quot;],
+ &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;]
+}
+systemctl daemon-reload
+systemctl restart docker
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><ol start="9"><li>Kubeadm, Kubelet, Kubectl 安装
+kubeadm 是 kubernetes 的集群安装工具，能够快速安装 kubernetes 集群。能完成下面拓扑安装</li></ol> <ul><li>单节点 k8s （1+0）</li> <li>单 master 和多 node 的 k8s 系统（1+n）</li> <li>Mater HA 和多 node 的 k8s 系统(m*1+n)
+<img src="/image/k8s/kubeadm%E5%9C%A8%E6%95%B4%E4%B8%AAK8S%E6%9E%B6%E6%9E%84%E9%87%8C%E7%9A%84%E4%BD%8D%E7%BD%AE.png" alt=""></li> <li>kubeadm init 启动一个 Kubernetes 主节点</li> <li>kubeadm join 启动一个 Kubernetes 工作节点并且将其加入到集群</li> <li>kubeadm upgrade 更新一个 Kubernetes 集群到新版本</li> <li>kubeadm config 如果你使用 kubeadm v1.7.x 或者更低版本，你需要对你的集群做一些
+配置以便使用 kubeadm upgrade 命令</li> <li>kubeadm token 使用 kubeadm join 来管理令牌， https</li> <li>kubeadm reset 还原之前使用 kubeadm init 或者 kubeadm join 对节点产生的改
+变</li> <li>kubeadm version 打印出 kubeadm 版本</li> <li>kubeadm alpha 预览一组可用的新功能以便从社区搜集反馈</li> <li>添加软件源信息</li></ul> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-
+x86_64/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg 
+https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+
+yum list kubeadm --showduplicates |sort -r
+yum remove kubeadm.x86_64 kubectl.x86_64 kubelet.x86_64 -y
+yum install kubeadm-1.18.3 kubectl-1.18.3 kubelet-1.18.3 -y
+yum install kubeadm kubectl kubelet -y
+yum install kubeadm-1.21.5 kubectl-1.21.5 kubelet-1.21.5 -y
+
+节点对应的位置即可使用 kubectl 命令行工具了
+kubectl version
+
+启动 kubelet
+systemctl daemon-reload
+systemctl start kubelet.service
+systemctl enable kubelet.service
+systemctl status kubelet.service
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div><h1 id="_4-集群安装-master"><a href="#_4-集群安装-master" class="header-anchor">#</a> 4:集群安装（Master）</h1> <ol><li>命令行直接安装</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>所有节点安装之前记得先把镜像准备好，否者将无法启动，也不报错。
+--pod-network-cidr=10.10.0.0/16
+--service-cidr=10.20.0.0/16
+--image-repository registry.aliyuncs.com/google_containers
+kubeadm init --image-repository registry.aliyuncs.com/google_containers --
+kubernetes-version=v1.21.5 --pod-network-cidr=10.10.0.0/16 --service-cidr=10.20.0.0/16 --apiserver-advertise-address=192.168.56.5
+Two VM with below IP address and host name after modification
+192.168.56.5 k18-5 master
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ol start="2"><li>配置文件安装</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>1. 生成文件
+kubeadm config print init-defaults &gt;init-config.yaml
+kubeadm init --config=init-config.yaml
+2.修改文件
+v init-config.yaml 
+apiVersion: kubeadm.k8s.io/v1beta3
+bootstrapTokens:
+- groups:
+ - system:bootstrappers:kubeadm:default-node-token
+ token: abcdef.0123456789abcdef
+ ttl: 24h0m0s
+ usages:
+- signing
+ - authentication
+kind: InitConfiguration
+localAPIEndpoint:
+ advertiseAddress: 192.168.56.5
+ bindPort: 6443
+nodeRegistration:
+ criSocket: /var/run/dockershim.sock
+ imagePullPolicy: IfNotPresent
+ name: node
+ taints: null
+---
+apiServer:
+ timeoutForControlPlane: 4m0s
+apiVersion: kubeadm.k8s.io/v1beta3
+certificatesDir: /etc/kubernetes/pki
+clusterName: kubernetes
+controllerManager: {}
+dns: {}
+etcd:
+ local:
+ dataDir: /var/lib/etcd
+imageRepository: registry.aliyuncs.com/google_containers
+kind: ClusterConfiguration
+kubernetesVersion: 1.21.5
+networking:
+ dnsDomain: cluster.local
+ serviceSubnet: 10.20.0.0/16
+ podSubnet: &quot;10.10.0.0/16&quot;
+scheduler: {}
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: &quot;ipvs&quot;
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br></div></div><ol start="3"><li>卸载安装</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>使用 flannel 插件
+kubeadm reset
+ifconfig cni0 down &amp;&amp; ip link delete cni0
+ifconfig flannel.1 down &amp;&amp; ip link delete flannel.1
+rm -rf /var/lib/cni/
+rm -rf /etc/kubernetes
+rm -rf /root/.kube/config
+rm -rf /var/lib/etcd
+above is necessary, cnI0 address conflict to setup sandbox.
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><ol start="4"><li>Kubectl 准备</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>下面的命令是配置如何使用 kubectl 访问集群的方式：
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+状态检查
+Kubectl get cs/node/pod
+K get all -A
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ol start="5"><li>安装 POD network Flannel</li></ol> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+如果多个网卡修改增加 arg 下面的参数
+args:
+- --ip-masq
+- --kube-subnet-mgr
+- --iface=enp0s8
+
+K apply -f kube-flannel.yaml
+kubectl get ds -l app=flannel -n kube-system
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h1 id="_5-master-node-参与工作负载"><a href="#_5-master-node-参与工作负载" class="header-anchor">#</a> 5.Master node 参与工作负载</h1> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>
+使用 kubeadm 初始化的集群， Pod 不会被调度到 Master Node 上，也就是说 Master 
+Node 不参与工作负载。这是因为当前的 master 节点 node1 被打上了 node-role.kubernetes.io/master:NoSchedule 的污点：
+kubectl describe node k18-5 | grep Taint
+Taints: node-role.kubernetes.io/master:NoSchedule
+
+因为这里搭建的是测试环境，去掉这个污点使 node1 参与工作负载：
+kubectl taint nodes k18-56 node-role.kubernetes.io/master-k describe configmap kube-proxy -n kube-system
+k edit configmap kube-proxy -n kube-system
+mode: &quot;ipvs&quot;
+k delete pod *1
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><h1 id="_6-node-join"><a href="#_6-node-join" class="header-anchor">#</a> 6.Node Join</h1> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>kubeadm join 192.168.56.5:6443 --token tu4o1w.0h3742iq4w3zhdwz --discovery-tokenca-cert-hash 
+sha256:a13d673cbfd7a40b03e93dabdc472dc3a43350034e01eb6dc2abe42322c3354d
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h1 id="_7-node"><a href="#_7-node" class="header-anchor">#</a> 7.Node</h1> <p>Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
+节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。 每个节点包含运
+行 Pods 所需的服务； 这些节点由 控制面 负责管理。
+通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也
+可能 只有一个节点。
+节点上的组件包括 kubelet、 容器运行时以及 kube-proxy。
+节点状态
+一个节点的状态包含以下信息:</p> <ul><li>地址</li> <li>状况</li> <li>容量与可分配</li> <li>信息
+你可以使用 kubectl 来查看节点状态和其他细节信息：
+<code>kubectl describe node k18-5</code></li></ul> <h1 id="_8-namespace"><a href="#_8-namespace" class="header-anchor">#</a> 8.Namespace</h1> <p>Kubernetes 支持多个虚拟集群，它们底层依赖于同一个物理集群。 这些虚拟集群被称
+为名字空间。 在一些文档里名字空间也称为命名空间。</p> <p><strong>何时使用多个名字空间</strong></p> <p>名字空间适用于存在很多跨多个团队或项目的用户的场景。对于只有几到几十个用户
+的集群，根本不需要创建或考虑名字空间。当需要名称空间提供的功能时，请开始使
+用它们。
+名字空间为名称提供了一个范围。资源的名称需要在名字空间内是唯一的，但不能跨
+名字空间。 名字空间不能相互嵌套，每个 Kubernetes 资源只能在一个名字空间中。
+名字空间是在多个用户之间划分集群资源的一种方法（通过资源配额）。
+不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本： 应该
+使用标签 来区分同一名字空间中的不同资源</p> <p><strong>查看名字空间</strong></p> <div class="language-aidl line-numbers-mode"><pre class="language-text"><code>你可以使用以下命令列出集群中现存的名字空间：
+kubectl get namespace
+
+结果
+NAME STATUS AGE
+default Active 1d
+kube-node-lease Active 1d
+kube-system Active 1d
+kube-public Active 1d
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div><p><strong>Kubernetes 会创建四个初始名字空间</strong></p> <ul><li>default 没有指明使用其它名字空间的对象所使用的默认名字空间</li> <li>kube-system Kubernetes 系统创建对象所使用的名字空间</li> <li>kube-public 这个名字空间是自动创建的，所有用户（包括未经过身份验证的用户）都
+可以读取它。 这个名字空间主要用于集群使用，以防某些资源在整个集群中应该是可
+见和可读的。 这个名字空间的公共方面只是一种约定，而不是要求。</li> <li>kube-node-lease 此名字空间用于与各个节点相关的租期（Lease）对象； 此对象的设
+计使得集群规模很大时节点心跳检测性能得到提升。</li></ul> <p><strong>Namespace 创建</strong></p> <p><code>K create ns tes</code></p></div></div>  <div class="page-edit"><!----> <div class="tags"><a href="/tags/?tag=%E4%BA%91%E5%8E%9F%E7%94%9F" title="标签">#云原生</a><a href="/tags/?tag=K8s" title="标签">#K8s</a></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">2022/09/28, 17:52:34</span></div></div> <div class="page-nav-wapper"><div class="page-nav-centre-wrap"><a href="/pages/204ff5/" class="page-nav-centre page-nav-centre-prev"><div class="tooltip">k8s介绍</div></a> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/pages/204ff5/" class="prev">k8s介绍</a></span> <!----></p></div></div></div> <div class="article-list"><div class="article-title"><a href="/archives/" class="iconfont icon-bi">最近更新</a></div> <div class="article-wrapper"><dl><dd>01</dd> <dt><a href="/pages/23c241/"><div>
+            银河麒麟介绍
+            <!----></div></a> <span class="date">09-28</span></dt></dl><dl><dd>02</dd> <dt><a href="/pages/98cdc7/"><div>
+            GraalVM
+            <!----></div></a> <span class="date">09-28</span></dt></dl><dl><dd>03</dd> <dt><a href="/pages/30d661/"><div>
+            JIT
+            <!----></div></a> <span class="date">09-28</span></dt></dl> <dl><dd></dd> <dt><a href="/archives/" class="more">更多文章&gt;</a></dt></dl></div></div></main></div> <div class="footer"><div class="icons"><a href="mailto:lcyu18910064212@163.com" title="发邮件" target="_blank" class="iconfont icon-youjian"></a><a href="https://github.com/lichangyu2022" title="GitHub" target="_blank" class="iconfont icon-github"></a><a href="https://music.163.com/#/playlist?id=755597173" title="听音乐" target="_blank" class="iconfont icon-erji"></a></div> 
+  Theme by
+  <a href="https://github.com/xugaoyi/vuepress-theme-vdoing" target="_blank" title="本站主题">Vdoing</a> <!----></div> <div class="buttons"><div title="返回顶部" class="button blur go-to-top iconfont icon-fanhuidingbu" style="display:none;"></div> <div title="去评论" class="button blur go-to-comment iconfont icon-pinglun" style="display:none;"></div> <div title="主题模式" class="button blur theme-mode-but iconfont icon-zhuti"><ul class="select-box" style="display:none;"><li class="iconfont icon-zidong">
+          跟随系统
+        </li><li class="iconfont icon-rijianmoshi">
+          浅色模式
+        </li><li class="iconfont icon-yejianmoshi">
+          深色模式
+        </li><li class="iconfont icon-yuedu">
+          阅读模式
+        </li></ul></div></div> <!----> <!----> <!----></div><div class="global-ui"><div></div><div id="tcomment"></div></div></div>
+    <script src="/assets/js/app.74fccf48.js" defer></script><script src="/assets/js/2.a7e8ef18.js" defer></script><script src="/assets/js/28.d7670328.js" defer></script><script src="/assets/js/6.66ff038f.js" defer></script><script src="/assets/js/3.c21cb588.js" defer></script>
+  </body>
+</html>
