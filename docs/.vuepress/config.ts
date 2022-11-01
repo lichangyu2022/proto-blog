@@ -41,10 +41,18 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                 link: '/pages/07c04a/'
               },
               {
+                text: '并发编程',
+                link: '/pages/6b51b5/'
+              },
+              {
                 text: 'JVM',
                 link: '/pages/13793a/'
               },
             ],
+          },
+          {
+            text: 'Go',
+            link:'/pages/a5d935/'
           }
         ]
       },
@@ -79,7 +87,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         items: [
           {
             text: '汇编',
-            //link: '/pages/07c04a/',
+            link: '/pages/7a5291/',
           },
           {
             text: 'WIN32',
